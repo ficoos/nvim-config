@@ -1,5 +1,6 @@
 local lsp = require('lsp-zero')
 local smiz_lsp = require('smizrahi.lsp')
+local _, extra_lsp = pcall(require, 'extra.lsp')
 
 lsp.preset("recommended")
 

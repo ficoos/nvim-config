@@ -3,6 +3,8 @@
 -- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
 
+local _, extra_packer = pcall(require, "extra.packer")
+
 local ensure_packer = function()
     local fn = vim.fn
     local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
@@ -20,18 +22,25 @@ return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
+    use 'folke/tokyonight.nvim'
+
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.1',
         -- or                            , branch = '0.1.x',
-        requires = { {'nvim-lua/plenary.nvim'} }
+        requires = {
+            {'nvim-lua/plenary.nvim'},
+            {'kyazdani42/nvim-web-devicons'},
+        }
     }
-
-    use 'folke/tokyonight.nvim'
 
     use {'nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'}}
 
-    use 'nvim-lua/plenary.nvim'
-    use 'ThePrimeagen/harpoon'
+    use {
+        'ThePrimeagen/harpoon',
+        requires = {
+            {'nvim-lua/plenary.nvim'},
+        }
+    }
 
     use 'mbbill/undotree'
 
@@ -78,6 +87,10 @@ return require('packer').startup(function(use)
     }
 
     use 'mfussenegger/nvim-dap'
+
+    if extra_packer and extra_packer.startup then
+        extra_packer.startup(use)
+    end
 
     if packer_bootstrap then
         require('packer').sync()
