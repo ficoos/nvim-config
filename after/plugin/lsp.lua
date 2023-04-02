@@ -12,8 +12,8 @@ lsp.ensure_installed({
 
 lsp.skip_server_setup({'rust_analyzer'})
 
-lsp.on_attach(function(_, bufnr)
-    smiz_lsp.common_remaps(bufnr)
+lsp.on_attach(function(client, bufnr)
+    smiz_lsp.common_remaps(client, bufnr)
 end)
 
 lsp.nvim_workspace()
