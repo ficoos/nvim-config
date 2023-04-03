@@ -1,6 +1,8 @@
 local builtin = require('telescope.builtin')
 
-vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
+require('which-key').register({ s = { name = "Search" } }, { prefix = "<leader>" })
+
+vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = "Search files" })
 vim.keymap.set('n', '<C-p>', function()
     if not pcall(function() builtin.git_files { show_untracked = true } end) then
         builtin.find_files()
@@ -12,7 +14,4 @@ vim.keymap.set('n', '<leader>\\', function()
 end, { desc = "Fuzzy find in buffer" })
 vim.keymap.set('n', '<leader>c', builtin.commands, { desc = "Show commands" })
 vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = 'Search Diagnostics' })
-vim.keymap.set('n', '<leader>ps', function()
-    builtin.grep_string({ search = vim.fn.input("Grep > ") })
-end)
-vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = 'Search Bbuffers' })
+vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = 'Search Buffers' })

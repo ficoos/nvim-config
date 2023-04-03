@@ -1,6 +1,13 @@
 return {
     'tpope/vim-fugitive',
+    dependencies = { 'folke/which-key.nvim' },
     config = function()
-        vim.keymap.set("n", "<leader>gs", vim.cmd.Git, { desc = "git: status" })
+        local wk = require("which-key")
+        wk.register({
+            g = {
+                name = "git",
+                s = { "<cmd>Git<cr>", "git: status", noremap = false },
+            }
+        }, { prefix = "<leader>" })
     end
 }
