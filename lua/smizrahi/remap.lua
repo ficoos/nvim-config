@@ -5,8 +5,8 @@ vim.g.mapleader = "\\"
 
 vim.keymap.set("n", "<leader>b", vim.cmd.Ex, { desc = "netrw: Browse current directory" })
 vim.keymap.set("n", "Q", "<nop>")
-vim.keymap.set("n", "<leader>]", ":cnext<CR>", { desc = "quickfix: Go to next" })
-vim.keymap.set("n", "<leader>[", ":cprevious<CR>", { desc = "quickfix: Go to previous" })
+vim.keymap.set("n", "]c", ":cnext<CR>", { desc = "quickfix: Go to next" })
+vim.keymap.set("n", "[c", ":cprevious<CR>", { desc = "quickfix: Go to previous" })
 vim.keymap.set("n", "<leader>c", ":cclose<CR>", { desc = "quickfix: close" })
 
 -- move with alt+direction
@@ -30,3 +30,6 @@ vim.keymap.set("n", "<M-S-Up>", "<c-S-w>+")
 vim.keymap.set("n", "<M-S-Down>", "<c-S-w>-")
 
 vim.keymap.set("n", "<leader>q", ":bnext | bdelete #<CR>", { desc = "Delete buffer" })
+
+vim.keymap.set("n", "[ ", "O<esc>j", { desc = "Add empty line above" })
+vim.keymap.set("n", "] ", "o<esc>k", { desc = "Add empty line below" })
