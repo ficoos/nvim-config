@@ -68,11 +68,13 @@ return {
         }
     },
 
-    "folke/neodev.nvim",
+    {
+        "folke/neodev.nvim",
+        opts = { library = { plugins = { "nvim-dap-ui" }, types = true }, }
+    },
 
     'simrat39/rust-tools.nvim',
 
-    'mfussenegger/nvim-dap',
     {
         "lukas-reineke/indent-blankline.nvim",
         config = function()

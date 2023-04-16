@@ -31,5 +31,17 @@ vim.keymap.set("n", "<M-S-Down>", "<c-S-w>-")
 
 vim.keymap.set("n", "<leader>q", ":bnext | bdelete #<CR>", { desc = "Delete buffer" })
 
-vim.keymap.set("n", "[ ", "O<esc>j", { desc = "Add empty line above" })
-vim.keymap.set("n", "] ", "o<esc>k", { desc = "Add empty line below" })
+--- @param where "above" | "below"
+local function add_empty_line(where)
+    local row, col = table.unpack(vim.api.nvim_win_get_cursor(0))
+    local line = vim.api.nvim_get_current_line()
+    if where == "above" then
+        vim.api.nvim_buf_set_lines(0, row - 1, row, false, { "", line })
+        vim.api.nvim_win_set_cursor(0, { row + 1, col })
+    elseif where == "below" then
+        vim.api.nvim_buf_set_lines(0, row - 1, row, false, { line, "" })
+    end
+end
+
+vim.keymap.set("n", "[ ", function() add_empty_line("above") end, { desc = "Add empty line above" })
+vim.keymap.set("n", "] ", function() add_empty_line("below") end, { desc = "Add empty line below" })
