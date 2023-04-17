@@ -16,3 +16,7 @@ vim.keymap.set('n', '<leader>p', builtin.commands, { desc = "Show commands" })
 vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = 'Search Diagnostics' })
 vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = 'Search Buffers' })
 vim.keymap.set('n', '<leader>/', builtin.buffers, { desc = 'Search Buffers' })
+vim.keymap.set("t", "<leader>/", function()
+    vim.cmd [[ stopinsert ]]
+    builtin.buffers()
+end, { desc = 'Search buffers' })

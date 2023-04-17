@@ -19,6 +19,16 @@ vim.keymap.set("n", "<M-Right>", "<c-w><Right>")
 vim.keymap.set("n", "<M-Up>", "<c-w><Up>")
 vim.keymap.set("n", "<M-Down>", "<c-w><Down>")
 
+vim.keymap.set("t", "<M-l>", "<c-\\><c-n><c-w>l")
+vim.keymap.set("t", "<M-h>", "<c-\\><c-n><c-w>h")
+vim.keymap.set("t", "<M-j>", "<c-\\><c-n><c-w>j")
+vim.keymap.set("t", "<M-k>", "<c-\\><c-n><c-w>k")
+vim.keymap.set("t", "<M-Left>", "<c-\\><c-n><c-w><Left>")
+vim.keymap.set("t", "<M-Right>", "<c-\\><c-n><c-w><Right>")
+vim.keymap.set("t", "<M-Up>", "<c-\\><c-n><c-w><Up>")
+vim.keymap.set("t", "<M-Down>", "<c-\\><c-n><c-w><Down>")
+vim.keymap.set("t", "<leader>/", "<c-\\><c-n>\\/")
+
 -- resize with alt+shift+direction
 vim.keymap.set("n", "<M-S-h>", "<c-S-w><")
 vim.keymap.set("n", "<M-S-l>", "<c-S-w>>")
@@ -30,10 +40,13 @@ vim.keymap.set("n", "<M-S-Up>", "<c-S-w>+")
 vim.keymap.set("n", "<M-S-Down>", "<c-S-w>-")
 
 vim.keymap.set("n", "<leader>q", ":bnext | bdelete #<CR>", { desc = "Delete buffer" })
+vim.keymap.set("n", "<leader>w", ":w<CR>", { desc = "Write buffer" })
+vim.keymap.set("n", "<leader>t", ":terminal<CR>i", { desc = "Create terminal" })
 
 --- @param where "above" | "below"
 local function add_empty_line(where)
-    local row, col = table.unpack(vim.api.nvim_win_get_cursor(0))
+    local cursor = vim.api.nvim_win_get_cursor(0)
+    local row, col = cursor[1], cursor[1]
     local line = vim.api.nvim_get_current_line()
     if where == "above" then
         vim.api.nvim_buf_set_lines(0, row - 1, row, false, { "", line })
@@ -45,3 +58,6 @@ end
 
 vim.keymap.set("n", "[ ", function() add_empty_line("above") end, { desc = "Add empty line above" })
 vim.keymap.set("n", "] ", function() add_empty_line("below") end, { desc = "Add empty line below" })
+
+vim.cmd [[ autocmd BufWinEnter,WinEnter term://* startinsert ]]
+vim.cmd [[ autocmd BufLeave term://* stopinsert ]]
