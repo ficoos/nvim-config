@@ -22,12 +22,16 @@ local function common_remaps(client, bufnr)
     vim.keymap.set("n", "<leader>lw", function() builtin.lsp_dynamic_workspace_symbols() end,
         opts { desc = "lsp: Workspace  Symbol" })
     vim.keymap.set("n", "<leader>ld", function() vim.diagnostic.open_float() end, opts { desc = "lsp: Show diagnostics" })
+    vim.keymap.set("n", "<leader>lD", ":TroubleToggle document_diagnostics<CR>",
+        opts { desc = "lsp: Show document diagnostics" })
     vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts { desc = "lsp: Go to next diagnostic" })
     vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts { desc = "lsp: Go to previous diagnostic" })
     vim.keymap.set("n", "<leader>la", function() vim.lsp.buf.code_action() end, opts { desc = "lsp: Code Action" })
-    vim.keymap.set("n", "<leader>lr", function() vim.lsp.buf.references() end, opts { desc = "lsp: Find all references" })
+    vim.keymap.set("n", "<leader>lr", ":TroubleToggle lsp_references<CR>",
+        opts { desc = "lsp: Find all references" })
     vim.keymap.set("n", "<f2>", function() vim.lsp.buf.rename() end, opts { desc = "lsp: Rename" })
     vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts { desc = "lsp: Singature help" })
+    vim.keymap.set("i", "<C-space>", function() vim.lsp.buf.completion({}) end, opts { desc = "lsp: Singature help" })
     vim.keymap.set('n', '<leader>lf', function() vim.lsp.buf.format { async = true } end,
         opts { desc = "lsp: Format document" })
     if client.supports_method("textDocument/formatting") then

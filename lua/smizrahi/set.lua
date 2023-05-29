@@ -29,3 +29,7 @@ vim.opt.updatetime = 50
 vim.opt.colorcolumn = "80"
 vim.opt.cursorline = true
 vim.opt.cursorlineopt = "number"
+vim.api.nvim_create_autocmd('TermOpen', {
+    pattern = '*',
+    command = [[setlocal nonumber norelativenumber]],
+})

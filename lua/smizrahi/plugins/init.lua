@@ -14,14 +14,14 @@ return {
                 functions = {},
                 variables = {},
                 -- Background styles. Can be "dark", "transparent" or "normal"
-                sidebars = "dark",            -- style for sidebars, see below
-                floats = "dark",              -- style for floating windows
+                sidebars = "dark",                   -- style for sidebars, see below
+                floats = "dark",                     -- style for floating windows
             },
-            sidebars = { "qf", "help" },      -- Set a darker background on sidebar-like windows. For example: `["qf", "vista_kind", "terminal", "packer"]`
-            day_brightness = 0.3,             -- Adjusts the brightness of the colors of the **Day** style. Number between 0 and 1, from dull to vibrant colors
-            hide_inactive_statusline = false, -- Enabling this option, will hide inactive statuslines and replace them with a thin border instead. Should work with the standard **StatusLine** and **LuaLine**.
-            dim_inactive = false,             -- dims inactive windows
-            lualine_bold = false,             -- When `true`, section headers in the lualine theme will be bold
+            sidebars = { "qf", "help", "terminal" }, -- Set a darker background on sidebar-like windows. For example: `["qf", "vista_kind", "terminal", "packer"]`
+            day_brightness = 0.3,                    -- Adjusts the brightness of the colors of the **Day** style. Number between 0 and 1, from dull to vibrant colors
+            hide_inactive_statusline = false,        -- Enabling this option, will hide inactive statuslines and replace them with a thin border instead. Should work with the standard **StatusLine** and **LuaLine**.
+            dim_inactive = false,                    -- dims inactive windows
+            lualine_bold = false,                    -- When `true`, section headers in the lualine theme will be bold
             --- You can override specific color groups to use other groups or a hex color
             --- function will be called with a ColorScheme table
             ---@param colors ColorScheme
@@ -41,8 +41,29 @@ return {
         -- or                            , branch = '0.1.x',
         dependencies = {
             { 'nvim-lua/plenary.nvim' },
-            { 'kyazdani42/nvim-web-devicons' },
-        }
+            { 'nvim-tree/nvim-web-devicons' },
+        },
+        config = function()
+            local actions = require "telescope.actions"
+            require("telescope").setup {
+                pickers = {
+                    find_files = {
+                        previewer = false,
+                    },
+                    git_files = {
+                        previewer = false,
+                    },
+                    buffers = {
+                        previewer = false,
+                        mappings = {
+                            i = {
+                                ["<c-d>"] = actions.delete_buffer + actions.move_to_top,
+                            }
+                        }
+                    }
+                }
+            }
+        end
     },
 
     {
